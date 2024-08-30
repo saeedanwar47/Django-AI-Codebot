@@ -1,0 +1,79 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+{% if response %}
+
+<pre>
+<code class = " line-numbers language-{{lang}}">
+{{response}}
+
+</code>
+</pre>
+
+<br/><br/>
+<form method = POST action = "{% url 'home' %}">
+    {% csrf_token %}
+
+<div class="mb-3">
+  
+    <textarea class="form-control" name ="code" rows="3" placeholder = "Have A.I Fix my Code..." >{{ code }}</textarea>
+  </div>
+
+
+  <select class="form-select"  name = "lang" aria-label="Default select example">
+    <option selected>Select Programming Language</option>
+
+    {% for lang in languages %}
+    <option value="{{lang}}">{{lang}}</option>
+  
+    {% endfor %}
+  </select>
+  <br/>
+
+  <button type="Submit" class="btn btn-primary">Primary</button>
+
+</form>
+
+
+
+{% else %}
+
+<pre>
+<code class = " line-numbers language-python">
+def home(request):
+    return render(request, 'home.html')
+</code>
+</pre>
+
+<br/><br/>
+<form method = POST action = "{% url 'home' %}">
+    {% csrf_token %}
+
+<div class="mb-3">
+  
+    <textarea class="form-control" name ="code" rows="3" placeholder = "Have A.I Fix my Code..."></textarea>
+  </div>
+
+
+  <select class="form-select"  name = "lang" aria-label="Default select example">
+    <option selected>Select Programming Language</option>
+
+    {% for lang in languages %}
+    <option value="{{lang}}">{{lang}}</option>
+  
+    {% endfor %}
+  </select>
+  <br/>
+
+
+  <button type="Submit" class="btn btn-primary">Submit</button>
+
+</form>
+{% endif %}
+{% endblock %}
+
+
+
+
+
